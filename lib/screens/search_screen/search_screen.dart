@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:top_git_rep/design/app_localization.dart';
 import 'package:top_git_rep/design/app_theme_text.dart';
 import 'package:top_git_rep/screens/repository_screen/repository_screen.dart';
 
@@ -38,7 +39,7 @@ class SearchScreen extends StatelessWidget {
         );
       } else {
         return const Center(
-          child: Text('Error SearchForm'),
+          child: Text(AppLocalization.ERROR_SEARCH_FORM),
         );
       }
     });
@@ -70,7 +71,9 @@ class SearchBarState extends State<SearchBar> {
 
   void onClearTapped() {
     textController.text = '';
-    githubSearchBloc.add(const OnTechnologySelectedEvent(text: ''));
+    githubSearchBloc.add(
+      const OnTechnologySelectedEvent(text: ''),
+    );
   }
 
   @override
@@ -90,7 +93,7 @@ class SearchBarState extends State<SearchBar> {
           child: const Icon(Icons.clear),
         ),
         border: InputBorder.none,
-        hintText: 'Enter a search language',
+        hintText: AppLocalization.ENTER_SEARCH_LANGUAGE,
       ),
     );
   }
@@ -105,11 +108,11 @@ class SearchBody extends StatelessWidget {
         builder: (context, state) {
       if (state is LanguagesState) {
         return state.items.isEmpty
-            ? const Text('No result')
+            ? const Text(AppLocalization.NO_RESULT)
             : Expanded(child: SearchResult(items: state.items));
       } else {
         return const Center(
-          child: Text('Error SearchBody'),
+          child: Text(AppLocalization.ERROR_SEARCH_BODY),
         );
       }
     });
