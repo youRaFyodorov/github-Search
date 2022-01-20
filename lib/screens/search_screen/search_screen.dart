@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:top_git_rep/design/app_localization.dart';
 import 'package:top_git_rep/design/app_theme_text.dart';
+import 'package:top_git_rep/design/dimensions.dart';
 import 'package:top_git_rep/screens/repository_screen/repository_screen.dart';
 
 import 'bloc/github_search_bloc.dart';
@@ -35,7 +36,7 @@ class SearchScreen extends StatelessWidget {
       } else if (state is LoadingState) {
         return const SpinKitCircle(
           color: Colors.deepPurpleAccent,
-          size: 80.0,
+          size: Dimensions.SPIN_KIT_CIRCLE_SIZE_80,
         );
       } else {
         return const Center(
@@ -120,7 +121,7 @@ class SearchBody extends StatelessWidget {
 }
 
 class SearchResult extends StatelessWidget {
-  const SearchResult({Key? key, required this.items}) : super(key: key);
+  SearchResult({required this.items});
   final List<String> items;
 
   @override
@@ -135,7 +136,7 @@ class SearchResult extends StatelessWidget {
 }
 
 class SearchResultItem extends StatelessWidget {
-  const SearchResultItem({Key? key, required this.item}) : super(key: key);
+  SearchResultItem({required this.item});
   final String item;
 
   @override
