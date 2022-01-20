@@ -9,8 +9,8 @@ abstract class GithubSearchEvent extends Equatable {
 
 class InitEvent extends GithubSearchEvent {}
 
-class OnTechnologySelected extends GithubSearchEvent {
-  const OnTechnologySelected({required this.text});
+class OnTechnologySelectedEvent extends GithubSearchEvent {
+  const OnTechnologySelectedEvent({required this.text});
 
   final String text;
 
@@ -18,13 +18,11 @@ class OnTechnologySelected extends GithubSearchEvent {
   List<Object> get props => [text];
 }
 
-class GoToCurrentLanguageRepositories extends GithubSearchEvent {
-  const GoToCurrentLanguageRepositories({required this.language});
+class GoToCurrentLanguageRepositoriesEvent extends GithubSearchEvent {
+  const GoToCurrentLanguageRepositoriesEvent({required this.language});
 
   final String language;
 
   @override
   List<Object> get props => [language];
 }
-
-

@@ -24,18 +24,17 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
   @override
   Stream<GithubSearchState> mapEventToState(GithubSearchEvent event) async* {
     if (event is InitEvent) {
-      yield const StateWithLanguages(items: languages);
-    } else if (event is OnTechnologySelected) {
+      yield const LanguagesState(items: languages);
+    } else if (event is OnTechnologySelectedEvent) {
       final List<String> resultList =
           languages.where((element) => element.contains(event.text)).toList();
-      yield StateWithLanguages(items: resultList);
-    } else if (event is GoToCurrentLanguageRepositories) {
-      yield Loading();
+      yield LanguagesState(items: resultList);
+    } else if (event is GoToCurrentLanguageRepositoriesEvent) {
+      yield LoadingState();
       final SearchResult searchResult =
           await gitProvider.search(event.language);
-      yield StateWithRepositories(repository: searchResult.items);
-      yield const StateWithLanguages(items: languages);
-
+      yield RepositoriesState(repository: searchResult.repositories);
+      yield const LanguagesState(items: languages);
     }
   }
 }

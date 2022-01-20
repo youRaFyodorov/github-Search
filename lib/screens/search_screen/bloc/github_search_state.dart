@@ -8,22 +8,22 @@ class GithubSearchState extends Equatable {
   List<Object> get props => [];
 }
 
-class StateWithLanguages extends GithubSearchState {
+class LanguagesState extends GithubSearchState {
   final List<String> items;
 
-  const StateWithLanguages({required this.items});
+  const LanguagesState({required this.items});
 
   @override
   List<Object> get props => [items];
 }
 
-class StateWithRepositories extends GithubSearchState {
+class RepositoriesState extends GithubSearchState {
   final List<Repository> repository;
 
-  const StateWithRepositories({required this.repository});
+  const RepositoriesState({required this.repository});
 
   @override
   List<Object> get props => [repository];
 }
 
-class Loading extends GithubSearchState {}
+class LoadingState extends GithubSearchState {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:top_git_rep/design/app_theme_text.dart';
 import 'package:top_git_rep/screens/repository_screen/repository_screen.dart';
 
 import 'bloc/github_search_bloc.dart';
@@ -8,29 +9,29 @@ import 'bloc/github_search_event.dart';
 import 'bloc/github_search_state.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GithubSearchBloc, GithubSearchState>(
         listener: (context, state) {
-      if (state is StateWithRepositories) {
+      if (state is RepositoriesState) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => RepositoryScreen(
-                      repository: state.repository,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => RepositoryScreen(
+              repository: state.repository,
+            ),
+          ),
+        );
       }
     }, builder: (BuildContext context, GithubSearchState state) {
-      if (state is StateWithLanguages) {
+      if (state is LanguagesState) {
         return Column(
           children: const <Widget>[
             SearchBar(),
             SearchBody(),
           ],
         );
-      } else if (state is Loading) {
+      } else if (state is LoadingState) {
         return const SpinKitCircle(
           color: Colors.deepPurpleAccent,
           size: 80.0,
@@ -61,7 +62,7 @@ class SearchBarState extends State<SearchBar> {
     githubSearchBloc = context.read<GithubSearchBloc>();
   }
 
-  //@override
+  @override
   void despose() {
     textController.dispose();
     super.dispose();
@@ -69,7 +70,7 @@ class SearchBarState extends State<SearchBar> {
 
   void onClearTapped() {
     textController.text = '';
-    githubSearchBloc.add(const OnTechnologySelected(text: ''));
+    githubSearchBloc.add(const OnTechnologySelectedEvent(text: ''));
   }
 
   @override
@@ -79,7 +80,7 @@ class SearchBarState extends State<SearchBar> {
       controller: textController,
       onChanged: (text) {
         githubSearchBloc.add(
-          OnTechnologySelected(text: text),
+          OnTechnologySelectedEvent(text: text),
         );
       },
       decoration: InputDecoration(
@@ -102,7 +103,7 @@ class SearchBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GithubSearchBloc, GithubSearchState>(
         builder: (context, state) {
-      if (state is StateWithLanguages) {
+      if (state is LanguagesState) {
         return state.items.isEmpty
             ? const Text('No result')
             : Expanded(child: SearchResult(items: state.items));
@@ -138,17 +139,17 @@ class SearchResultItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
-            primary: Colors.black87,
-            textStyle: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
-            )
-            //fixedSize:
-            ),
+          primary: Colors.black87,
+          textStyle: const TextStyle(
+            fontSize: AppThemeText.FONTSIZE_22,
+            fontWeight: FontWeight.bold,
+          ),
+          //fixedSize:
+        ),
         onPressed: () {
           context
               .read<GithubSearchBloc>()
-              .add(GoToCurrentLanguageRepositories(language: item));
+              .add(GoToCurrentLanguageRepositoriesEvent(language: item));
         },
         child: Text(item));
   }
