@@ -30,10 +30,12 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
           languages.where((element) => element.contains(event.text)).toList();
       yield StateWithLanguages(items: resultList);
     } else if (event is GoToCurrentLanguageRepositories) {
+      yield Loading();
       final SearchResult searchResult =
           await gitProvider.search(event.language);
       yield StateWithRepositories(repository: searchResult.items);
       yield const StateWithLanguages(items: languages);
+
     }
   }
 }

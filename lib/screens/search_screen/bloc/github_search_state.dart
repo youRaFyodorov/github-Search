@@ -25,3 +25,5 @@ class StateWithRepositories extends GithubSearchState {
   @override
   List<Object> get props => [repository];
 }
+
+class Loading extends GithubSearchState {}

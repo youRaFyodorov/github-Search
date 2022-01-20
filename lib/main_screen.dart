@@ -16,10 +16,12 @@ class MainScreen extends StatelessWidget {
     return MaterialApp(
       title: 'Github Search',
       home: Scaffold(
-        appBar: AppBar(title: const Text('Github Search'),
+        appBar: AppBar(
+          title: const Text('Github Search'),
         ),
         body: BlocProvider(
-          create: (_) => GithubSearchBloc(gitProvider: gitProvider)..add(InitEvent()),
+          create: (_) =>
+              GithubSearchBloc(gitProvider: gitProvider)..add(InitEvent()),
           child: const SearchScreen(),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:top_git_rep/screens/repository_screen/repository_screen.dart';
 
 import 'bloc/github_search_bloc.dart';
@@ -28,6 +29,11 @@ class SearchScreen extends StatelessWidget {
             SearchBar(),
             SearchBody(),
           ],
+        );
+      } else if (state is Loading) {
+        return const SpinKitCircle(
+          color: Colors.deepPurpleAccent,
+          size: 80.0,
         );
       } else {
         return const Center(
