@@ -122,6 +122,7 @@ class SearchBody extends StatelessWidget {
 
 class SearchResult extends StatelessWidget {
   SearchResult({required this.items});
+
   final List<String> items;
 
   @override
@@ -137,6 +138,7 @@ class SearchResult extends StatelessWidget {
 
 class SearchResultItem extends StatelessWidget {
   SearchResultItem({required this.item});
+
   final String item;
 
   @override
@@ -148,7 +150,6 @@ class SearchResultItem extends StatelessWidget {
             fontSize: AppThemeText.FONTSIZE_22,
             fontWeight: FontWeight.bold,
           ),
-          //fixedSize:
         ),
         onPressed: () {
           context

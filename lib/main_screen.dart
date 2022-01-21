@@ -8,7 +8,7 @@ import 'package:top_git_rep/services/git_api_provider.dart';
 import 'screens/search_screen/search_screen.dart';
 
 class MainScreen extends StatelessWidget {
-  final GitProvider gitProvider = GitProvider();
+  final GithubRepositoryProvider gitProvider = GithubRepositoryProvider();
 
   @override
   Widget build(BuildContext context) {

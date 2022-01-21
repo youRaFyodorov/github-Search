@@ -19,7 +19,7 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
     'kotlin',
     'ruby'
   ];
-  final GitProvider gitProvider;
+  final GithubRepositoryProvider gitProvider;
 
   @override
   Stream<GithubSearchState> mapEventToState(GithubSearchEvent event) async* {
@@ -27,7 +27,7 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
       yield const LanguagesState(items: languages);
     } else if (event is OnTechnologySelectedEvent) {
       final List<String> resultList =
-          languages.where((element) => element.contains(event.text)).toList();
+          languages.where((language) => language.contains(event.text)).toList();
       yield LanguagesState(items: resultList);
     } else if (event is GoToCurrentLanguageRepositoriesEvent) {
       yield LoadingState();
