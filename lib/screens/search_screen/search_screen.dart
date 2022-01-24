@@ -15,17 +15,19 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<GithubSearchBloc, GithubSearchState>(
         listener: (context, state) {
-      if (state is RepositoriesState) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => RepositoryScreen(
-              repository: state.repository,
-            ),
-          ),
-        );
-      }
-    }, builder: (BuildContext context, GithubSearchState state) {
+          if (state is RepositoriesState) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    RepositoryScreen(
+                      repository: state.repository,
+                    ),
+              ),
+            );
+          }
+        },
+        builder: (BuildContext context, GithubSearchState state) {
       if (state is LanguagesState) {
         return Column(
           children: const <Widget>[
@@ -107,16 +109,16 @@ class SearchBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GithubSearchBloc, GithubSearchState>(
         builder: (context, state) {
-      if (state is LanguagesState) {
-        return state.items.isEmpty
-            ? const Text(AppLocalization.NO_RESULT)
-            : Expanded(child: SearchResult(items: state.items));
-      } else {
-        return const Center(
-          child: Text(AppLocalization.ERROR_SEARCH_BODY),
-        );
-      }
-    });
+          if (state is LanguagesState) {
+            return state.items.isEmpty
+                ? const Text(AppLocalization.NO_RESULT)
+                : Expanded(child: SearchResult(items: state.items));
+          } else {
+            return const Center(
+              child: Text(AppLocalization.ERROR_SEARCH_BODY),
+            );
+          }
+        });
   }
 }
 

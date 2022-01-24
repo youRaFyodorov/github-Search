@@ -1,9 +1,10 @@
 class Repository {
-  const Repository(
-      {required this.fullName,
-      required this.htmlUrl,
-      required this.description,
-      required this.stargazersCount});
+  const Repository({
+    required this.fullName,
+    required this.htmlUrl,
+    required this.description,
+    required this.stargazersCount,
+  });
 
   final String fullName;
   final String htmlUrl;

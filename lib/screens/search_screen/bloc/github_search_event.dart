@@ -26,3 +26,4 @@ class GoToCurrentLanguageRepositoriesEvent extends GithubSearchEvent {
   @override
   List<Object> get props => [language];
 }
+

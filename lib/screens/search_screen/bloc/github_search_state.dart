@@ -27,3 +27,12 @@ class RepositoriesState extends GithubSearchState {
 }
 
 class LoadingState extends GithubSearchState {}
+
+// class CurrentRepositoryState extends GithubSearchState{
+//
+//   const CurrentRepositoryState ({required this.htmlUrl});
+//   final List<Repository> htmlUrl;
+//
+//   @override
+//   List<Object> get props => [htmlUrl];
+// }
