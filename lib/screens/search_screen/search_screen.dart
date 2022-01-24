@@ -65,7 +65,7 @@ class SearchBarState extends State<SearchBar> {
   }
 
   @override
-  void despose() {
+  void dispose() {
     textController.dispose();
     super.dispose();
   }
