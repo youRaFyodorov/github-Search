@@ -5,5 +5,4 @@ GetIt getIt = GetIt.instance;
 
 void setup() {
   getIt.registerSingleton<GithubRepositoryProvider>(GithubRepositoryProvider());
-
 }

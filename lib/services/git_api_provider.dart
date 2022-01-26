@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:top_git_rep/design/app_localization.dart';
 import 'package:top_git_rep/models/search_result.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,7 @@ class GithubRepositoryProvider {
     if (response.statusCode == 200) {
       return SearchResult.fromJson(results);
     } else {
-      throw Exception("Error Search result");
+      throw Exception(AppLocalization.ERROR_SEARCH_RESULT);
     }
   }
 }

@@ -18,6 +18,7 @@ class MainScreen extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(AppLocalization.TITLE),
+          backgroundColor: Colors.black87,
         ),
         body: BlocProvider(
           create: (_) =>

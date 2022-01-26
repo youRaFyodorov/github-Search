@@ -19,10 +19,15 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
     'dart',
     'c#',
     'javaScript',
+    'c',
     'c++',
     'kotlin',
-    'ruby'
+    'ruby',
+    'go',
+    'fortran',
+    'typeScript',
   ];
+
   final GithubRepositoryProvider gitProvider;
 
   @override
@@ -30,13 +35,17 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
     if (event is InitEvent) {
       yield const LanguagesState(items: languages);
     } else if (event is OnTechnologySelectedEvent) {
-      final List<String> resultList =
-          languages.where((language) => language.contains(event.text)).toList();
+      final List<String> resultList = languages
+          .where((language) => language
+              .toString()
+              .toLowerCase()
+              .contains(event.text.toLowerCase()))
+          .toList();
       yield LanguagesState(items: resultList);
     } else if (event is GoToCurrentLanguageRepositoriesEvent) {
       yield LoadingState();
       final SearchResult searchResult =
-      await gitProvider.search(event.language);
+          await gitProvider.search(event.language);
       yield RepositoriesState(repository: searchResult.repositories);
       yield const LanguagesState(items: languages);
     }

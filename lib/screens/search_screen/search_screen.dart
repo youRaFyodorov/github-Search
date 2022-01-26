@@ -15,19 +15,17 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<GithubSearchBloc, GithubSearchState>(
         listener: (context, state) {
-          if (state is RepositoriesState) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    RepositoryScreen(
-                      repository: state.repository,
-                    ),
-              ),
-            );
-          }
-        },
-        builder: (BuildContext context, GithubSearchState state) {
+      if (state is RepositoriesState) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => RepositoryScreen(
+              repository: state.repository,
+            ),
+          ),
+        );
+      }
+    }, builder: (BuildContext context, GithubSearchState state) {
       if (state is LanguagesState) {
         return Column(
           children: const <Widget>[
@@ -37,7 +35,7 @@ class SearchScreen extends StatelessWidget {
         );
       } else if (state is LoadingState) {
         return const SpinKitCircle(
-          color: Colors.deepPurpleAccent,
+          color: Colors.black87,
           size: Dimensions.SPIN_KIT_CIRCLE_SIZE_80,
         );
       } else {
@@ -90,13 +88,22 @@ class SearchBarState extends State<SearchBar> {
         );
       },
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.search),
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(AppThemeText.FONTSIZE_22),
+        ),
+        prefixIcon: const Icon(Icons.search, color: Colors.black, size: AppThemeText.ICONSIZE_29),
         suffixIcon: GestureDetector(
           onTap: onClearTapped,
-          child: const Icon(Icons.clear),
+          child: const Icon(Icons.clear, color: Colors.black, size: AppThemeText.ICONSIZE_24),
         ),
         border: InputBorder.none,
         hintText: AppLocalization.ENTER_SEARCH_LANGUAGE,
+        hintStyle: const TextStyle(
+          color: Colors.black54,
+          fontSize: AppThemeText.FONTSIZE_18,
+        ),
       ),
     );
   }
@@ -109,16 +116,22 @@ class SearchBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GithubSearchBloc, GithubSearchState>(
         builder: (context, state) {
-          if (state is LanguagesState) {
-            return state.items.isEmpty
-                ? const Text(AppLocalization.NO_RESULT)
-                : Expanded(child: SearchResult(items: state.items));
-          } else {
-            return const Center(
-              child: Text(AppLocalization.ERROR_SEARCH_BODY),
-            );
-          }
-        });
+      if (state is LanguagesState) {
+        return state.items.isEmpty
+            ? const Text(
+                AppLocalization.NO_RESULT,
+                style: TextStyle(
+                  fontSize: AppThemeText.FONTSIZE_18,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : Expanded(child: SearchResult(items: state.items));
+      } else {
+        return const Center(
+          child: Text(AppLocalization.ERROR_SEARCH_BODY),
+        );
+      }
+    });
   }
 }
 

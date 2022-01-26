@@ -6,10 +6,6 @@ import 'package:top_git_rep/design/app_theme_text.dart';
 import 'package:top_git_rep/design/dimensions.dart';
 import 'package:top_git_rep/models/search_result_item.dart';
 import 'package:top_git_rep/screens/repository_screen/bloc/repository_bloc.dart';
-import 'package:top_git_rep/screens/search_screen/bloc/github_search_bloc.dart';
-import 'package:top_git_rep/screens/search_screen/bloc/github_search_event.dart';
-import 'package:top_git_rep/screens/search_screen/bloc/github_search_state.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'bloc/repository_event.dart';
 
@@ -23,9 +19,10 @@ class RepositoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppLocalization.REPOSITORIES),
+        backgroundColor: Colors.black87,
         leading: GestureDetector(
           child: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               Navigator.pop(context);
             },
