@@ -9,6 +9,7 @@ class GithubSearchState extends Equatable {
 }
 
 class LanguagesState extends GithubSearchState {
+
   final List<String> items;
 
   const LanguagesState({required this.items});
@@ -27,3 +28,5 @@ class RepositoriesState extends GithubSearchState {
 }
 
 class LoadingState extends GithubSearchState {}
+
+

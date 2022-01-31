@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:top_git_rep/design/app_localization.dart';
 import 'package:top_git_rep/screens/search_screen/bloc/github_search_bloc.dart';
 import 'package:top_git_rep/screens/search_screen/bloc/github_search_event.dart';
+import 'package:top_git_rep/services/favorite_repository_provider.dart';
 import 'package:top_git_rep/services/git_api_provider.dart';
 
 import 'models/app_di.dart';

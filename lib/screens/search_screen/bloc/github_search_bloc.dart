@@ -1,10 +1,7 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:top_git_rep/models/search_result.dart';
 import 'package:top_git_rep/services/git_api_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:top_git_rep/services/language_provider.dart';
 
 import 'github_search_event.dart';
 import 'github_search_state.dart';
@@ -13,29 +10,14 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
   GithubSearchBloc({required this.gitProvider})
       : super(const GithubSearchState());
 
-  static const List<String> languages = [
-    'java',
-    'swift',
-    'dart',
-    'c#',
-    'javaScript',
-    'c',
-    'c++',
-    'kotlin',
-    'ruby',
-    'go',
-    'fortran',
-    'typeScript',
-  ];
-
   final GithubRepositoryProvider gitProvider;
 
   @override
   Stream<GithubSearchState> mapEventToState(GithubSearchEvent event) async* {
     if (event is InitEvent) {
-      yield const LanguagesState(items: languages);
+      yield const LanguagesState(items: LanguageProvider.languages);
     } else if (event is OnTechnologySelectedEvent) {
-      final List<String> resultList = languages
+      final List<String> resultList = LanguageProvider.languages
           .where((language) => language
               .toString()
               .toLowerCase()
@@ -47,7 +29,7 @@ class GithubSearchBloc extends Bloc<GithubSearchEvent, GithubSearchState> {
       final SearchResult searchResult =
           await gitProvider.search(event.language);
       yield RepositoriesState(repository: searchResult.repositories);
-      yield const LanguagesState(items: languages);
+      yield const LanguagesState(items: LanguageProvider.languages);
     }
   }
 }

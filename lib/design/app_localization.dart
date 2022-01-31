@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 class AppLocalization {
   static const String TITLE = 'Github Repositories';

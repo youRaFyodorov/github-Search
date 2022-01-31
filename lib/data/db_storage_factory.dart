@@ -1,5 +1,6 @@
 
 abstract class DbStorageFactory {
 
-  Future<DbStorageFactory> createInstance();
+  //Future<DbStorageFactory> createInstance();
+  //insert ();
 }

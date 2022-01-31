@@ -24,4 +24,6 @@ class GithubRepositoryProvider {
       throw Exception(AppLocalization.ERROR_SEARCH_RESULT);
     }
   }
+
+
 }

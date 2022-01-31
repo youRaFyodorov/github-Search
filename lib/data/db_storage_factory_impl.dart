@@ -1,7 +1,10 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:top_git_rep/data/table.dart';
+import 'package:top_git_rep/models/app_di.dart';
+import 'package:top_git_rep/services/favorite_repository_provider.dart';
+import 'package:top_git_rep/services/language_provider.dart';
 
 import 'db_storage_factory.dart';
 
@@ -11,10 +14,10 @@ class DbStorageFactoryImpl extends DbStorageFactory {
 
   final Database db;
 
+
   DbStorageFactoryImpl._(this.db);
 
-  @override
-  Future<DbStorageFactory> createInstance() async {
+  static Future<DbStorageFactory> createInstance() async {
     final String databasesPath = await getDatabasesPath();
     final String path = join(databasesPath, DATABASE_NAME);
 
@@ -23,14 +26,22 @@ class DbStorageFactoryImpl extends DbStorageFactory {
       version: DATABASE_VERSION,
       onUpgrade: (Database db, int oldVersion, int newVersion) async {},
       onCreate: (Database db, int version) async {
-        await db.execute(RepositoryTable.CREATE_TABLE_QUERY);
         await db.execute(LanguageTable.CREATE_TABLE_QUERY);
-        await db.execute(FavoriteLanguageTable.CREATE_TABLE_QUERY);
+        await LanguageProvider(db: db).init();
+        await db.execute(FavoriteRepositoryTable.CREATE_TABLE_QUERY);
+        print('db created');
+        //await FavoriteRepositoryProvider(db: db).save();
+        //await db.execute(FavoriteRepositoryTable.CREATE_TABLE_SELECT);
       },
-      onConfigure: (Database db) async {
-        await db.execute('PRAGMA foreign_keys = ON');
-      },
+      // onConfigure: (Database db) async {
+      //   await db.execute('PRAGMA foreign_keys = ON');
+      // },
     );
+
+    getIt.registerSingleton<FavoriteRepositoryProvider>(FavoriteRepositoryProvider(db: db));
+
     return DbStorageFactoryImpl._(db);
   }
+
+
 }
