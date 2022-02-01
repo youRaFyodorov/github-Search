@@ -23,11 +23,12 @@ class GoToCurrentRepositoriesEvent extends CurrentRepositoryEvent {
   List<Object> get props => [htmlUrl];
 }
 
+class Pop extends CurrentRepositoryEvent {}
+
 class SaveAsFavoriteRepositoryEvent extends CurrentRepositoryEvent {
   const SaveAsFavoriteRepositoryEvent({required this.index});
 
   final int index;
- // final int id;
 
   @override
   List<Object> get props => [index];
@@ -37,7 +38,6 @@ class DeleteFromFavoriteRepositoryEvent extends CurrentRepositoryEvent {
   const DeleteFromFavoriteRepositoryEvent({required this.index});
 
   final int index;
-  //final int id;
 
   @override
   List<Object> get props => [index];

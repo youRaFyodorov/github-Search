@@ -8,9 +8,10 @@ class FavoriteRepositoryProvider {
 
   Future<void> save(int repositoryId) async {
     {
-      await db.insert(FavoriteRepositoryTable.TABLE_NAME, {
-        FavoriteRepositoryTable.COLUMN_ID_FAVORITE_REPOSITORY: repositoryId
-      });
+      await db.insert(
+        FavoriteRepositoryTable.TABLE_NAME,
+        {FavoriteRepositoryTable.COLUMN_ID_FAVORITE_REPOSITORY: repositoryId},
+      );
       print('save element in Provider');
     }
   }

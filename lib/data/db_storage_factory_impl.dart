@@ -1,4 +1,3 @@
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:top_git_rep/data/table.dart';
@@ -13,7 +12,6 @@ class DbStorageFactoryImpl extends DbStorageFactory {
   static const String DATABASE_NAME = 'language.db';
 
   final Database db;
-
 
   DbStorageFactoryImpl._(this.db);
 
@@ -30,18 +28,12 @@ class DbStorageFactoryImpl extends DbStorageFactory {
         await LanguageProvider(db: db).init();
         await db.execute(FavoriteRepositoryTable.CREATE_TABLE_QUERY);
         print('db created');
-        //await FavoriteRepositoryProvider(db: db).save();
-        //await db.execute(FavoriteRepositoryTable.CREATE_TABLE_SELECT);
       },
-      // onConfigure: (Database db) async {
-      //   await db.execute('PRAGMA foreign_keys = ON');
-      // },
     );
 
-    getIt.registerSingleton<FavoriteRepositoryProvider>(FavoriteRepositoryProvider(db: db));
+    getIt.registerSingleton<FavoriteRepositoryProvider>(
+        FavoriteRepositoryProvider(db: db));
 
     return DbStorageFactoryImpl._(db);
   }
-
-
 }

@@ -23,7 +23,7 @@ class LanguageProvider {
   LanguageProvider({required this.db});
 
   Future<void> saveAll(List<String> languageNames) async {
-    languageNames.forEach((languageName) async{
+    languageNames.forEach((languageName) async {
       await db.insert(LanguageTable.TABLE_NAME,
           <String, String>{LanguageTable.COLUMN_NAME: languageName});
     });

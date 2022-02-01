@@ -25,19 +25,4 @@ class Repository {
       stargazersCount: json['stargazers_count'] as int,
     );
   }
-
-  // Map<String, dynamic> toJson() => {
-  //   "id": id,
-  //   "full_name": fullName,
-  //   //"html_url": htmlUrl,
-  //   "description": description,
-  //   "stargazers_count": stargazersCount,
-  // };
-  //
-  // Future<List<dynamic>> getAllRepositories () async{
-  //   final Database db = (await Database) as Database;
-  //   var res = await db.query("Repository");
-  //   List<dynamic> list = res.isNotEmpty ? res.map((c)=> Repository.fromJson()).toList():[];
-  //   return list;
-  // }
 }

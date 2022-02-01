@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:top_git_rep/design/app_localization.dart';
 import 'package:top_git_rep/design/app_theme_text.dart';
-import 'package:top_git_rep/design/dimensions.dart';
-import 'package:top_git_rep/screens/repository_screen/repository_screen.dart';
-
 import 'bloc/github_search_bloc.dart';
 import 'bloc/github_search_event.dart';
 import 'bloc/github_search_state.dart';
@@ -13,37 +9,22 @@ import 'bloc/github_search_state.dart';
 class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GithubSearchBloc, GithubSearchState>(
-        listener: (context, state) {
-      if (state is RepositoriesState) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => RepositoryScreen(
-              repository: state.repository,
-            ),
-          ),
-        );
-      }
-    }, builder: (BuildContext context, GithubSearchState state) {
-      if (state is LanguagesState) {
-        return Column(
-          children: const <Widget>[
-            SearchBar(),
-            SearchBody(),
-          ],
-        );
-      } else if (state is LoadingState) {
-        return const SpinKitCircle(
-          color: Colors.black87,
-          size: Dimensions.SPIN_KIT_CIRCLE_SIZE_80,
-        );
-      } else {
-        return const Center(
-          child: Text(AppLocalization.ERROR_SEARCH_FORM),
-        );
-      }
-    });
+    return BlocBuilder<GithubSearchBloc, GithubSearchState>(
+      builder: (BuildContext context, GithubSearchState state) {
+        if (state is LanguagesState) {
+          return Column(
+            children: const <Widget>[
+              SearchBar(),
+              SearchBody(),
+            ],
+          );
+        } else {
+          return const Center(
+            child: Text(AppLocalization.ERROR_SEARCH_FORM),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -93,10 +74,12 @@ class SearchBarState extends State<SearchBar> {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(AppThemeText.FONTSIZE_22),
         ),
-        prefixIcon: const Icon(Icons.search, color: Colors.black, size: AppThemeText.ICONSIZE_29),
+        prefixIcon: const Icon(Icons.search,
+            color: Colors.black, size: AppThemeText.ICONSIZE_29),
         suffixIcon: GestureDetector(
           onTap: onClearTapped,
-          child: const Icon(Icons.clear, color: Colors.black, size: AppThemeText.ICONSIZE_24),
+          child: const Icon(Icons.clear,
+              color: Colors.black, size: AppThemeText.ICONSIZE_24),
         ),
         border: InputBorder.none,
         hintText: AppLocalization.ENTER_SEARCH_LANGUAGE,
@@ -115,23 +98,24 @@ class SearchBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GithubSearchBloc, GithubSearchState>(
-        builder: (context, state) {
-      if (state is LanguagesState) {
-        return state.items.isEmpty
-            ? const Text(
-                AppLocalization.NO_RESULT,
-                style: TextStyle(
-                  fontSize: AppThemeText.FONTSIZE_18,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            : Expanded(child: SearchResult(items: state.items));
-      } else {
-        return const Center(
-          child: Text(AppLocalization.ERROR_SEARCH_BODY),
-        );
-      }
-    });
+      builder: (context, state) {
+        if (state is LanguagesState) {
+          return state.items.isEmpty
+              ? const Text(
+                  AppLocalization.NO_RESULT,
+                  style: TextStyle(
+                    fontSize: AppThemeText.FONTSIZE_18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              : Expanded(child: SearchResult(items: state.items));
+        } else {
+          return const Center(
+            child: Text(AppLocalization.ERROR_SEARCH_BODY),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -174,3 +158,10 @@ class SearchResultItem extends StatelessWidget {
         child: Text(item));
   }
 }
+
+// else if (state is LoadingState) {
+// return const SpinKitCircle(
+// color: Colors.black87,
+// size: Dimensions.SPIN_KIT_CIRCLE_SIZE_80,
+// );
+// }

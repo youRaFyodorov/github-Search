@@ -1,6 +1,2 @@
 
-abstract class DbStorageFactory {
-
-  //Future<DbStorageFactory> createInstance();
-  //insert ();
-}
+abstract class DbStorageFactory {}
